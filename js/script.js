@@ -60,4 +60,81 @@
             });
         });
 
+        class Particle {
+    constructor(canvas) {
+        this.canvas = canvas;
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 1 + 1;
+        this.speedX = Math.random() * 0.5 - 0.7;
+        this.speedY = Math.random() * 0.5 - 0.7;
+        this.color = `rgba(255, 255, 255, ${Math.random() * 0.3})`;
+    }
+
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x > this.canvas.width) this.x = 0;
+        else if (this.x < 0) this.x = this.canvas.width;
+        if (this.y > this.canvas.height) this.y = 0;
+        else if (this.y < 0) this.y = this.canvas.height;
+    }
+
+    draw(ctx) {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+function initParticles() {
+    const hero = document.querySelector('.hero');
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    canvas.style.position = 'absolute';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.zIndex = '1';
+    
+    hero.style.position = 'relative';
+    hero.insertBefore(canvas, hero.firstChild);
+
+    function resizeCanvas() {
+        canvas.width = hero.offsetWidth;
+        canvas.height = hero.offsetHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const particles = [];
+    const particleCount = 100;
+
+    for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle(canvas));
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         
+        particles.forEach(particle => {
+            particle.update();
+            particle.draw(ctx);
+        });
+        
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+}
+
+document.addEventListener('DOMContentLoaded', initParticles);
+
+
+       
