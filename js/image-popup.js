@@ -71,26 +71,6 @@ function criarModal() {
         transition: transform 0.3s ease;
     `;
 
-    const closeBtn = modal.querySelector('#closeModal');
-    closeBtn.style.cssText = `
-        position: absolute;
-        top: 0px;
-        right: -0px;
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        border: none;
-        font-size: 35px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: all 0.3s ease;
-        z-index: 10001;
-    `;
-
     const controls = modal.querySelector('.modal-controls');
     controls.style.cssText = `
         position: absolute;
