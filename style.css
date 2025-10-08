@@ -135,7 +135,10 @@
         }
         
         .logo > img{
-            width: 70px;
+            width: 70px;    
+        }
+        .logo{
+            font-family: 'Akira Expanded', sans-serif;
         }
         
         
@@ -576,7 +579,7 @@ section::after {
     overflow: hidden;
     background: linear-gradient(0deg, #1a1a1a, #000000);
     min-height: 100vh;
-            background: linear-gradient(180deg, rgba(41, 41, 41, 0.212), rgba(63, 63, 63, 0)) padding-box,
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.212), rgba(63, 63, 63, 0)) padding-box,
             linear-gradient(0deg, rgba(65, 64, 64, 0), rgba(54, 54, 54, 0)) border-box;
             border: 1px solid transparent;
 }
@@ -662,5 +665,35 @@ section::after {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
+    margin-top: 10%;
+}
+@media (max-width: 459px) {
+    #h1-hero{
+        font-size: 2rem;
+        margin-bottom: 20%;
+    }
+    #contact{
+        text-align: center;
+        font-size: 1rem;
+    }
+    h2{
+        font-size: 1.5rem;
+    }
 }
 
+section {
+    opacity: 0;
+    transform: translateY(80px) scale(0.96);
+    filter: blur(12px);
+    transition:
+        opacity 0.9s cubic-bezier(.77,0,.18,1),
+        transform 0.9s cubic-bezier(.77,0,.18,1),
+        filter 0.9s cubic-bezier(.77,0,.18,1);
+    will-change: opacity, transform, filter;
+}
+
+section.show-on-scroll {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+}
