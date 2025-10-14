@@ -681,19 +681,3 @@ section::after {
     }
 }
 
-section {
-    opacity: 0;
-    transform: translateY(80px) scale(0.96);
-    filter: blur(12px);
-    transition:
-        opacity 0.5s cubic-bezier(.77,0,.18,1),
-        transform 0.5s cubic-bezier(.77,0,.18,1),
-        filter 0.5s cubic-bezier(.77,0,.18,1);
-    will-change: opacity, transform, filter;
-}
-
-section.show-on-scroll {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-}
