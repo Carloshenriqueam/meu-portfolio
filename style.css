@@ -233,9 +233,12 @@
         }
         
         .about-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 60%;
+            border-radius: 70px;
+            box-shadow: 20px 20px 5px rgba(0, 0, 0, 0.29);
+            background: linear-gradient(190deg, black, rgba(63, 63, 63, 0.158)) padding-box,
+            linear-gradient(190deg, rgba(184, 184, 184, 0.438), rgba(54, 54, 54, 0)) border-box;
+            border: 1px solid transparent;
         }
         
         /* Habilidades */
