@@ -708,11 +708,11 @@ section::after {
   left: 0;
   background: radial-gradient(
     circle 60px at 0% 100%,
-    #3fe9ff,
-    #0000ff80,
+    #181b1b,
+    #ffffff80,
     transparent
   );
-  box-shadow: -10px 10px 30px #0051ff2d;
+  box-shadow: -10px 10px 30px #ffffff38;
 }
 
 .inner {
@@ -734,8 +734,8 @@ section::after {
   border-radius: 14px;
   background: radial-gradient(
     circle 60px at 0% 100%,
-    #00e1ff1a,
-    #0000ff11,
+    #d2d2d21a,
+    #24242411,
     transparent
   );
   position: absolute;
