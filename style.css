@@ -195,26 +195,18 @@
         .hero-btns {
             animation: fadeIn 2s ease;
             margin-top: 5%;
-       
+                        
         }
-        
-        .btn-secondary {
-            background: linear-gradient(190deg, black, rgba(63, 63, 63, 0.158)) padding-box,
-            linear-gradient(190deg, rgba(184, 184, 184, 0.438), rgba(54, 54, 54, 0)) border-box;
-            border: 1px solid rgba(255, 255, 255, 0);
-            margin-left: 15px;
-
+        .buttonmov{
+            transition: all 0.3s;
         }
-        
-        .btn-secondary:hover {
-            background-color: transparent;
-            color: rgb(255, 255, 255);
-        }
-        
+       .buttonmov:hover{
+            transform: translateY(-5px);
+       }
         /* Sobre */
         .about {
             background: linear-gradient(180deg, black 0%, black 100%);
-            text-shadow: 1px 1px 40px rgba(255, 255, 255, 0.445);
+            text-shadow: 1px 1px 40px rgb(255, 255, 255);
         }
         
         .about-content {
@@ -529,8 +521,8 @@
             }
         }
  @media (max-width: 651px) {
-    .btn-secondary{
-        margin-top: 5px;
+    #margem{
+        margin-bottom: 5%;
     }
  }
 body {
@@ -675,7 +667,7 @@ section::after {
         font-size: 2rem;
         margin-bottom: 20%;
     }
-    #contact{
+    .btn{
         text-align: center;
         font-size: 1rem;
     }
@@ -684,3 +676,138 @@ section::after {
     }
 }
 
+/* From Uiverse.io by Spacious74 */ 
+.button {
+  cursor: pointer;
+  font-size: 1.4rem;
+  border-radius: 16px;
+  border: none;
+  padding: 2px;
+  background: radial-gradient(circle 80px at 80% -10%, #ffffff, #181b1b);
+  position: relative;
+
+}
+.button::after {
+  content: "";
+  position: absolute;
+  width: 65%;
+  height: 60%;
+  border-radius: 120px;
+  top: 0;
+  right: 0;
+  box-shadow: 0 0 20px #ffffff38;
+  z-index: -1;
+}
+
+.blob1 {
+  position: absolute;
+  width: 70px;
+  height: 100%;
+  border-radius: 16px;
+  bottom: 0;
+  left: 0;
+  background: radial-gradient(
+    circle 60px at 0% 100%,
+    #3fe9ff,
+    #0000ff80,
+    transparent
+  );
+  box-shadow: -10px 10px 30px #0051ff2d;
+}
+
+.inner {
+    padding: 14px 25px;
+    border-radius: 14px;
+    color: #fff;
+    z-index: 3;
+    position: relative;
+    background: radial-gradient(circle 80px at 80% -50%, #777777, #0f1111);
+    font-family: 'Akira Expanded', sans-serif;
+    font-size: 1rem;
+}
+.inner::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 14px;
+  background: radial-gradient(
+    circle 60px at 0% 100%,
+    #00e1ff1a,
+    #0000ff11,
+    transparent
+  );
+  position: absolute;
+
+}
+
+
+.outer {
+  width: 370px;
+  height: 250px;
+  border-radius: 10px;
+  padding: 1px;
+  background: radial-gradient(circle 230px at 0% 0%, #ffffff, #0c0d0d);
+  position: relative;
+}
+
+.card {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 9px;
+  border: solid 1px #202222;
+  background-size: 20px 20px;
+  background: radial-gradient(circle 280px at 0% 0%, #444444, #0c0d0d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-direction: column;
+  color: #fff;
+}
+
+
+.card .text {
+  font-weight: bolder;
+  font-size: 1.7rem;
+  background: linear-gradient(45deg, #000000 4%, #fff, #000);
+  background-clip: text;
+  color: transparent;
+  font-family: 'Akira Expanded', sans-serif;
+  text-shadow: 1px 1px 20px rgba(255, 255, 255, 0.285);
+
+}
+.sub-text p{
+  text-align: center;  
+  font-size: 0.9rem;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 250px;
+
+  color: #c0c0c0;
+}
+.line {
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  background-color: #2c2c2c;
+}
+.topl {
+  top: 10%;
+  background: linear-gradient(90deg, #888888 30%, #1d1f1f 70%);
+}
+.bottoml {
+  bottom: 10%;
+}
+.leftl {
+  left: 10%;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, #747474 30%, #222424 70%);
+}
+.rightl {
+  right: 10%;
+  width: 1px;
+  height: 100%;
+}
