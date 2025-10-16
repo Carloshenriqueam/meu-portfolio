@@ -744,7 +744,7 @@ section::after {
 
 
 .outer {
-  width: 370px;
+
   height: 250px;
   border-radius: 10px;
   padding: 1px;
@@ -772,11 +772,12 @@ section::after {
 .card .text {
   font-weight: bolder;
   font-size: 1.7rem;
-  background: linear-gradient(45deg, #000000 4%, #fff, #000);
+  background: linear-gradient(45deg, transparent 4%, #fff, transparent);
   background-clip: text;
   color: transparent;
   font-family: 'Akira Expanded', sans-serif;
   text-shadow: 1px 1px 20px rgba(255, 255, 255, 0.285);
+  margin-bottom: 5%;
 
 }
 .sub-text p{
