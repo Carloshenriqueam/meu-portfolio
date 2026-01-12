@@ -63,7 +63,7 @@ function criarModal() {
 
     const modalImg = modal.querySelector('#modalImage');
     modalImg.style.cssText = `
-        max-width: 100%;
+        max-width: 60%;
         max-height: 90vh;
         object-fit: contain;
         border-radius: 8px;
@@ -74,22 +74,23 @@ function criarModal() {
     const controls = modal.querySelector('.modal-controls');
     controls.style.cssText = `
         position: absolute;
-        bottom: 20px;
+        bottom: -20%;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
         gap: 10px;
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(37, 37, 37, 0.7);
         padding: 10px 15px;
         border-radius: 25px;
+        transition: all 0.3s ease;
     `;
 
     const controlBtns = modal.querySelectorAll('.control-btn');
     controlBtns.forEach(btn => {
         btn.style.cssText = `
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(158, 158, 158, 0.15);
             color: white;
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             width: 40px;
             height: 40px;
             border-radius: 50%;
