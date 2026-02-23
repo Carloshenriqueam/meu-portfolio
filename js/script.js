@@ -120,6 +120,7 @@ gsap.from(".skills-grid .card", {
     duration: 0.8,
     y: 50,
     opacity: 0,
+    stagger: 0.2,
     ease: "power2.out",
     scrollTrigger: {
         trigger: ".skills-grid",
