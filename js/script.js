@@ -416,15 +416,7 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
 });
 
-// Hover effects for social links
-document.querySelectorAll('.social-links a').forEach(link => {
-    link.addEventListener('mouseenter', () => {
-        gsap.to(link, { rotation: 360, duration: 0.5, ease: "power2.out" });
-    });
-    link.addEventListener('mouseleave', () => {
-        gsap.to(link, { rotation: 0, duration: 0.5, ease: "power2.out" });
-    });
-});
+
 
 // Hover effects for filter buttons
 document.querySelectorAll('.filter-btn').forEach(btn => {
