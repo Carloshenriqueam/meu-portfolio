@@ -242,6 +242,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Set initial language
     setLanguage(currentLang);
+    
+    // Start typewriter AFTER language text is set (avoid duplicate text)
+    startTypewriter();
 
 // Hero Section
 gsap.from("#home .container", {
@@ -434,10 +437,13 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 
 // Typewriter effect for hero title
-const heroTitle = document.querySelector('#h1-hero');
-if (heroTitle) {
+function startTypewriter() {
+    const heroTitle = document.querySelector('#h1-hero');
+    if (!heroTitle) return;
+
     const text = heroTitle.textContent;
     heroTitle.textContent = '';
+
     let i = 0;
     const typeWriter = () => {
         if (i < text.length) {
@@ -446,6 +452,7 @@ if (heroTitle) {
             setTimeout(typeWriter, 100);
         }
     };
+
     setTimeout(typeWriter, 1000); // Start after 1 second
 }
 
