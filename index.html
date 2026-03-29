@@ -17,11 +17,21 @@
                 <div class="logo"><img src="imagens/logo.png" alt=""></div>
                 <div class="menu-toggle">☰</div>
                 <ul class="nav-links">
-                    <li><a href="#home">Inicio</a></li>
-                    <li><a href="#about">Sobre</a></li>
-                    <li><a href="#skills">Especialidades</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#contact">Contato</a></li>
+                    <li><a href="#home" data-lang="nav-home">Inicio</a></li>
+                    <li><a href="#about" data-lang="nav-about">Sobre</a></li>
+                    <li><a href="#skills" data-lang="nav-skills">Especialidades</a></li>
+                    <li><a href="#portfolio" data-lang="nav-portfolio">Portfolio</a></li>
+                    <li><a href="#contact" data-lang="nav-contact">Contato</a></li>
+                    <li class="language-toggle">
+                        <div class="custom-select">
+                            <div class="select-selected" id="select-selected">PT</div>
+                            <div class="select-items" id="select-items">
+                                <div data-value="pt">PT</div>
+                                <div data-value="en">EN</div>
+                                <div data-value="es">ES</div>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -31,20 +41,20 @@
     <section id="home" class="hero">
         <div class="container">
             <span>
-                <h1 class="shiny-text" id="h1-hero">Potencialize seu negocio com design estrategico.</h1>
+                <h1 class="shiny-text" id="h1-hero" data-lang="hero-title">Potencialize seu negocio com design estrategico.</h1>
                 <div class="hero-btns">
                     <a href="#portfolio">
                         <button class="button buttonmov" id="margem">
                             <div class="blob1"></div>
                             <div class="blob2"></div>
-                            <div class="inner">Ver Projetos</div>
+                            <div class="inner" data-lang="hero-view-projects">Ver Projetos</div>
                         </button>
                     </a>
                     <a href="#contact">
                         <button class="button buttonmov">
                             <div class="blob1"></div>
                             <div class="blob2"></div>
-                            <div class="inner">Entrar em contato</div>
+                            <div class="inner" data-lang="hero-contact">Entrar em contato</div>
                         </button>
                     </a>
                 </div>
@@ -55,13 +65,13 @@
     <!-- Sobre -->
     <section id="about" class="about">
         <div class="container">
-            <h2>Sobre Mim</h2>
+            <h2 data-lang="about-title">Sobre Mim</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>Prazer, meu nome é Carlos,
+                    <p data-lang="about-p1">Prazer, meu nome é Carlos,
                     Há 3 anos transformando ideias em experiências visuais que conectam marcas a clientes. Criando soluções visuais, comunicando com clareza e despertando conexões genuínas com o público.</p>
-                    <p>Minha abordagem combina criatividade, estratégia e atenção aos detalhes para garantir que cada projeto seja único e eficaz.</p>
-                    <a href="#contact"class="btn">Vamos Trabalhar Juntos</a>
+                    <p data-lang="about-p2">Minha abordagem combina criatividade, estratégia e atenção aos detalhes para garantir que cada projeto seja único e eficaz.</p>
+                    <a href="#contact"class="btn" data-lang="about-cta">Vamos Trabalhar Juntos</a>
                 </div>
                 <div class="about-image">
                     <img src="imagens/ft.jpg" alt="Foto">
@@ -73,14 +83,14 @@
     <!-- Habilidades -->
     <section id="skills" class="skills">
         <div class="container">
-            <h2>Especialidades</h2>
+            <h2 data-lang="skills-title">Especialidades</h2>
             <div class="skills-grid">
 <div class="outer">
   <div class="dot"></div>
   <div class="card">
     <div class="ray"></div>
     <div class="text">FLYER</div>
-    <div class="sub-text"><p>Criação de flyer impactante com identidade visual personalizada, pensado para divulgação de eventos, promoções ou marcas.</p></div>
+    <div class="sub-text"><p data-lang="skills-flyer-desc">Criação de flyer impactante com identidade visual personalizada, pensado para divulgação de eventos, promoções ou marcas.</p></div>
     <div class="line topl"></div>
     <div class="line leftl"></div>
     <div class="line bottoml"></div>
@@ -92,7 +102,7 @@
   <div class="card">
     <div class="ray"></div>
     <div class="text">Thumbnails</div>
-    <div class="sub-text"><p>Criação de thumbnails que destacam vídeos e postagens, atraindo cliques e engajando o público.</p></div>
+    <div class="sub-text"><p data-lang="skills-thumbnails-desc">Criação de thumbnails que destacam vídeos e postagens, atraindo cliques e engajando o público.</p></div>
     <div class="line topl"></div>
     <div class="line leftl"></div>
     <div class="line bottoml"></div>
@@ -104,7 +114,7 @@
   <div class="card">
     <div class="ray"></div>
     <div class="text">Banners</div>
-    <div class="sub-text" ><p>Criação de Banners que destacam a marca, mostrando profissionalismo e qualidade.</p></div>
+    <div class="sub-text" ><p data-lang="skills-banners-desc">Criação de Banners que destacam a marca, mostrando profissionalismo e qualidade.</p></div>
     <div class="line topl"></div>
     <div class="line leftl"></div>
     <div class="line bottoml"></div>
@@ -117,12 +127,12 @@
     <!-- Portfólio -->
     <section id="portfolio" class="portfolio">
         <div class="container">
-            <h2>Projetos</h2>
+            <h2 data-lang="portfolio-title">Projetos</h2>
             <div class="portfolio-filters">
-                <button class="filter-btn active" data-filter="all">Todos</button>
-                <button class="filter-btn" data-filter="post">Flyer</button>
-                <button class="filter-btn" data-filter="thumb">Thumbnail</button>
-                <button class="filter-btn" data-filter="banner">Banner</button>         
+                <button class="filter-btn active" data-filter="all" data-lang="filter-all">Todos</button>
+                <button class="filter-btn" data-filter="post" data-lang="filter-flyer">Flyer</button>
+                <button class="filter-btn" data-filter="thumb" data-lang="filter-thumbnail">Thumbnail</button>
+                <button class="filter-btn" data-filter="banner" data-lang="filter-banner">Banner</button>         
                 <!-- <button class="filter-btn" data-filter="branding">Branding</button> -->
             </div>
             <div class="portfolio-grid">
@@ -197,28 +207,28 @@
     <!-- Contato -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2>Entre em Contato</h2>
+            <h2 data-lang="contact-title">Entre em Contato</h2>
             <div class="contact-content">
                 <div class="contact-info">
-                    <p>Entre em contato e desfrute de um Design Profissional.</p>
+                    <p data-lang="contact-desc">Entre em contato e desfrute de um Design Profissional.</p>
                     <div class="contact-item">
                         <div class="contact-icon">📧</div>
                         <div>
-                            <h3>Email</h3>
+                            <h3 data-lang="contact-email">Email</h3>
                             <p>carloshenriam777@gmail.com</p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon">📱</div>
                         <div>
-                            <h3>Telefone</h3>
+                            <h3 data-lang="contact-phone">Telefone</h3>
                             <p>(77) 99929-0848</p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon">📍</div>
                         <div>
-                            <h3>Localizacao</h3>
+                            <h3 data-lang="contact-location">Localizacao</h3>
                             <p>Brumado - BA, Brasil</p>
                         </div>
                     </div>
@@ -226,18 +236,18 @@
                 <div class="contact-form">
 <form id="contactForm" action="https://formsubmit.co/carloshenriam777@gmail.com" method="POST">
     <div class="form-group">
-        <input type="text" name="nome" class="form-control" placeholder="Seu Nome" required>
+        <input type="text" name="nome" class="form-control" placeholder="Seu Nome" data-lang-placeholder="form-name">
     </div>
     <div class="form-group">
-        <input type="email" name="email" class="form-control" placeholder="Seu Email" required>
+        <input type="email" name="email" class="form-control" placeholder="Seu Email" data-lang-placeholder="form-email">
     </div>
     <div class="form-group">
-        <input type="text" name="assunto" class="form-control" placeholder="Assunto" required>
+        <input type="text" name="assunto" class="form-control" placeholder="Assunto" data-lang-placeholder="form-subject">
     </div>
     <div class="form-group">
-        <textarea name="mensagem" class="form-control" placeholder="Sua Mensagem" required></textarea>
+        <textarea name="mensagem" class="form-control" placeholder="Sua Mensagem" data-lang-placeholder="form-message"></textarea>
     </div>
-    <button type="submit" class="btn">Enviar Mensagem</button>
+    <button type="submit" class="btn" data-lang="form-submit">Enviar Mensagem</button>
 </form>
                 </div>
             </div>
@@ -250,12 +260,12 @@
             <div class="container">
                 <div class="footer-content">
                     <div class="logo">CarlosHenriAM</div>
-                    <p>Potencialize seu negócio com design estratégico.</p>
+                    <p data-lang="footer-tagline">Potencialize seu negócio com design estratégico.</p>
                     <div class="social-links">
                         <a href="https://wa.me/5577999290848" target="_blank"><i class="fa fa-whatsapp" style="font-size:24px"></i></a>
                     </div>
                     <div class="copyright">
-                        <p>&copy; 2025 CarlosHenriAM. Todos os direitos reservados.</p>
+                        <p data-lang="footer-copyright">&copy; 2025 CarlosHenriAM. Todos os direitos reservados.</p>
                     </div>
                 </div>
             </div>

@@ -171,6 +171,66 @@
             font-size: 1.5rem;
         }
         
+        .language-toggle {
+            display: flex;
+        }
+        
+        /* Custom Select Styles */
+        .custom-select {
+            position: relative;
+            font-family: 'Akira Expanded', sans-serif;
+            font-size: 0.9rem;
+        }
+        
+        .select-selected {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--text-color);
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .select-selected:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .select-items {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .custom-select.open .select-items {
+            max-height: 200px;
+        }
+        
+        .select-items div {
+            padding: 8px 10px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .select-items div:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .select-items div.selected {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
         /* Hero Section */
         .hero {
             background: linear-gradient(0deg, black 0%, rgb(36, 33, 33) 100%);
@@ -515,6 +575,15 @@
             
             h2 {
                 font-size: 2rem;
+            }
+            
+            /* Custom select no mobile */
+            .custom-select .select-items {
+                position: static;
+                border: none;
+                background: rgba(0, 0, 0, 0.5);
+                border-radius: 5px;
+                margin-top: 5px;
             }
         }
  @media (max-width: 651px) {

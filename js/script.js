@@ -1,5 +1,156 @@
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+// Translations
+const translations = {
+    'pt': {
+        'nav-home': 'Inicio',
+        'nav-about': 'Sobre',
+        'nav-skills': 'Especialidades',
+        'nav-portfolio': 'Portfolio',
+        'nav-contact': 'Contato',
+        'hero-title': 'Potencialize seu negocio com design estrategico.',
+        'hero-view-projects': 'Ver Projetos',
+        'hero-contact': 'Entrar em contato',
+        'about-title': 'Sobre Mim',
+        'about-p1': 'Prazer, meu nome é Carlos, Há 3 anos transformando ideias em experiências visuais que conectam marcas a clientes. Criando soluções visuais, comunicando com clareza e despertando conexões genuínas com o público.',
+        'about-p2': 'Minha abordagem combina criatividade, estratégia e atenção aos detalhes para garantir que cada projeto seja único e eficaz.',
+        'about-cta': 'Vamos Trabalhar Juntos',
+        'skills-title': 'Especialidades',
+        'skills-flyer-desc': 'Criação de flyer impactante com identidade visual personalizada, pensado para divulgação de eventos, promoções ou marcas.',
+        'skills-thumbnails-desc': 'Criação de thumbnails que destacam vídeos e postagens, atraindo cliques e engajando o público.',
+        'skills-banners-desc': 'Criação de Banners que destacam a marca, mostrando profissionalismo e qualidade.',
+        'portfolio-title': 'Projetos',
+        'filter-all': 'Todos',
+        'filter-flyer': 'Flyer',
+        'filter-thumbnail': 'Thumbnail',
+        'filter-banner': 'Banner',
+        'contact-title': 'Entre em Contato',
+        'contact-desc': 'Entre em contato e desfrute de um Design Profissional.',
+        'contact-email': 'Email',
+        'contact-phone': 'Telefone',
+        'contact-location': 'Localizacao',
+        'form-name': 'Seu Nome',
+        'form-email': 'Seu Email',
+        'form-subject': 'Assunto',
+        'form-message': 'Sua Mensagem',
+        'form-submit': 'Enviar Mensagem',
+        'footer-tagline': 'Potencialize seu negócio com design estratégico.',
+        'footer-copyright': '© 2025 CarlosHenriAM. Todos os direitos reservados.',
+        'form-thank': 'Obrigado pela sua mensagem! Entrarei em contato em breve.'
+    },
+    'en': {
+        'nav-home': 'Home',
+        'nav-about': 'About',
+        'nav-skills': 'Specialties',
+        'nav-portfolio': 'Portfolio',
+        'nav-contact': 'Contact',
+        'hero-title': 'Boost your business with strategic design.',
+        'hero-view-projects': 'View Projects',
+        'hero-contact': 'Get in Touch',
+        'about-title': 'About Me',
+        'about-p1': 'Hi, my name is Carlos. For 3 years, I have been transforming ideas into visual experiences that connect brands to customers. Creating visual solutions, communicating clearly, and awakening genuine connections with the audience.',
+        'about-p2': 'My approach combines creativity, strategy, and attention to detail to ensure each project is unique and effective.',
+        'about-cta': "Let's Work Together",
+        'skills-title': 'Specialties',
+        'skills-flyer-desc': 'Creation of impactful flyers with personalized visual identity, designed for promoting events, promotions, or brands.',
+        'skills-thumbnails-desc': 'Creation of thumbnails that highlight videos and posts, attracting clicks and engaging the audience.',
+        'skills-banners-desc': 'Creation of banners that highlight the brand, showing professionalism and quality.',
+        'portfolio-title': 'Projects',
+        'filter-all': 'All',
+        'filter-flyer': 'Flyer',
+        'filter-thumbnail': 'Thumbnail',
+        'filter-banner': 'Banner',
+        'contact-title': 'Get in Touch',
+        'contact-desc': 'Get in touch and enjoy Professional Design.',
+        'contact-email': 'Email',
+        'contact-phone': 'Phone',
+        'contact-location': 'Location',
+        'form-name': 'Your Name',
+        'form-email': 'Your Email',
+        'form-subject': 'Subject',
+        'form-message': 'Your Message',
+        'form-submit': 'Send Message',
+        'footer-tagline': 'Boost your business with strategic design.',
+        'footer-copyright': '© 2025 CarlosHenriAM. All rights reserved.',
+        'form-thank': 'Thank you for your message! I will get back to you soon.'
+    },
+    'es': {
+        'nav-home': 'Inicio',
+        'nav-about': 'Sobre Mí',
+        'nav-skills': 'Especialidades',
+        'nav-portfolio': 'Portafolio',
+        'nav-contact': 'Contacto',
+        'hero-title': 'Potencie su negocio con diseño estratégico.',
+        'hero-view-projects': 'Ver Proyectos',
+        'hero-contact': 'Póngase en Contacto',
+        'about-title': 'Sobre Mí',
+        'about-p1': 'Hola, mi nombre es Carlos. Durante 3 años he estado transformando ideas en experiencias visuales que conectan marcas con clientes. Creando soluciones visuales, comunicando con claridad y despertando conexiones genuinas con el público.',
+        'about-p2': 'Mi enfoque combina creatividad, estrategia y atención a los detalles para garantizar que cada proyecto sea único y efectivo.',
+        'about-cta': 'Trabajemos Juntos',
+        'skills-title': 'Especialidades',
+        'skills-flyer-desc': 'Creación de folletos impactantes con identidad visual personalizada, diseñados para promocionar eventos, promociones o marcas.',
+        'skills-thumbnails-desc': 'Creación de miniaturas que destacan videos y publicaciones, atrayendo clics y comprometiendo al público.',
+        'skills-banners-desc': 'Creación de banners que destacan la marca, mostrando profesionalismo y calidad.',
+        'portfolio-title': 'Proyectos',
+        'filter-all': 'Todos',
+        'filter-flyer': 'Flyer',
+        'filter-thumbnail': 'Miniatura',
+        'filter-banner': 'Banner',
+        'contact-title': 'Póngase en Contacto',
+        'contact-desc': 'Póngase en contacto y disfrute de un Diseño Profesional.',
+        'contact-email': 'Correo Electrónico',
+        'contact-phone': 'Teléfono',
+        'contact-location': 'Ubicación',
+        'form-name': 'Su Nombre',
+        'form-email': 'Su Correo Electrónico',
+        'form-subject': 'Asunto',
+        'form-message': 'Su Mensaje',
+        'form-submit': 'Enviar Mensaje',
+        'footer-tagline': 'Potencie su negocio con diseño estratégico.',
+        'footer-copyright': '© 2025 CarlosHenriAM. Todos los derechos reservados.',
+        'form-thank': '¡Gracias por su mensaje! Me pondré en contacto con usted pronto.'
+    }
+};
+
+// Current language
+let currentLang = localStorage.getItem('lang') || 'pt';
+
+// Set language function
+function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    
+    // Update custom select display
+    const selectedDiv = document.getElementById('select-selected');
+    const langLabels = {'pt': 'PT', 'en': 'EN', 'es': 'ES'};
+    selectedDiv.textContent = langLabels[lang];
+    
+    // Update selected class
+    document.querySelectorAll('.select-items div').forEach(div => {
+        div.classList.toggle('selected', div.getAttribute('data-value') === lang);
+    });
+    
+    // Update html lang attribute
+    const langMap = {'pt': 'pt-BR', 'en': 'en', 'es': 'es'};
+    document.documentElement.lang = langMap[lang] || 'pt-BR';
+    
+    // Update text content
+    document.querySelectorAll('[data-lang]').forEach(el => {
+        const key = el.getAttribute('data-lang');
+        if (translations[lang][key]) {
+            el.textContent = translations[lang][key];
+        }
+    });
+    
+    // Update placeholders
+    document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-lang-placeholder');
+        if (translations[lang][key]) {
+            el.placeholder = translations[lang][key];
+        }
+    });
+}
+
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -55,15 +206,42 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         // Formulário de contato
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Obrigado pela sua mensagem! Entrarei em contato em breve.');
+            alert(translations[currentLang]['form-thank']);
             this.reset();
         });
 
+        // Language toggle - Custom dropdown
+        const customSelect = document.querySelector('.custom-select');
+        const selectSelected = document.getElementById('select-selected');
+        const selectItems = document.getElementById('select-items');
         
+        // Toggle dropdown
+        selectSelected.addEventListener('click', function() {
+            customSelect.classList.toggle('open');
+        });
+        
+        // Select option
+        selectItems.addEventListener('click', function(e) {
+            if (e.target.hasAttribute('data-value')) {
+                const value = e.target.getAttribute('data-value');
+                setLanguage(value);
+                customSelect.classList.remove('open');
+            }
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!customSelect.contains(e.target)) {
+                customSelect.classList.remove('open');
+            }
+        });
 
 // Animações de entrada com GSAP e ScrollTrigger
 document.addEventListener('DOMContentLoaded', function() {
     console.log('GSAP animations loaded');
+    
+    // Set initial language
+    setLanguage(currentLang);
 
 // Hero Section
 gsap.from("#home .container", {
