@@ -44,10 +44,10 @@ function criarModal() {
         height: 100%;
         background: rgba(0, 0, 0, 0.95);
         display: none;
+        opacity: 0;
         justify-content: center;
         align-items: center;
         z-index: 10000;
-        cursor: pointer;
     `;
 
     const modalContent = modal.querySelector('.modal-content');
@@ -58,7 +58,6 @@ function criarModal() {
         display: flex;
         justify-content: center;
         align-items: center;
-        cursor: default;
     `;
 
     const modalImg = modal.querySelector('#modalImage');
@@ -85,6 +84,7 @@ function criarModal() {
         transition: all 0.3s ease;
     `;
 
+    
     const controlBtns = modal.querySelectorAll('.control-btn');
     controlBtns.forEach(btn => {
         btn.style.cssText = `
@@ -103,6 +103,38 @@ function criarModal() {
         `;
     });
 
+    // Estilização do botão de fechar
+    const closeBtn = modal.querySelector('#closeModal');
+    closeBtn.style.cssText = `
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        width: 45px;
+        height: 45px;
+        background: #41414183;
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 10002;
+        line-height: 1;
+    `;
+
+    closeBtn.onmouseenter = () => {
+        closeBtn.style.transform = 'scale(1.1) rotate(90deg)';
+        closeBtn.style.background = '#414141';
+    };
+    closeBtn.onmouseleave = () => {
+        closeBtn.style.transform = 'scale(1) rotate(0deg)';
+        closeBtn.style.background = '#41414177';
+    };
+
     // Adicionar ao body
     document.body.appendChild(modal);
     console.log('✅ Modal criado com sucesso!');
@@ -114,6 +146,7 @@ function criarModal() {
 function configurarEventosModal() {
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImage');
+    const modalContent = modal.querySelector('.modal-content');
     const closeBtn = document.getElementById('closeModal');
     const zoomIn = document.getElementById('zoomIn');
     const zoomOut = document.getElementById('zoomOut');
@@ -125,15 +158,32 @@ function configurarEventosModal() {
         console.log('📸 Abrindo imagem:', src);
         modalImg.src = src;
         modal.style.display = 'flex';
+
+        // Animação de fade-in para o fundo do modal
+        gsap.to(modal, { opacity: 1, duration: 0.3, ease: "power2.out" });
+
+        // Animação de entrada suave para a imagem (escala + fade)
+        gsap.fromTo(modalContent, 
+            { scale: 0.9, opacity: 0 }, 
+            { scale: 1, opacity: 1, duration: 0.4, delay: 0.1, ease: "back.out(1.7)" }
+        );
+
         document.body.style.overflow = 'hidden';
         resetarZoom();
     };
 
     // Função para fechar modal
     function fecharModal() {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-        resetarZoom();
+        gsap.to(modal, { 
+            opacity: 0, 
+            duration: 0.3, 
+            ease: "power2.in",
+            onComplete: () => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                resetarZoom();
+            }
+        });
     }
 
     // Função de zoom
@@ -216,8 +266,6 @@ function configurarImagensPortfolio() {
     imagens.forEach((img, index) => {
         console.log(`🖼️ Configurando imagem ${index + 1}:`, img.src);
         
-        img.style.cursor = 'zoom-in';
-        
         // Remover event listeners existentes
         const novaImg = img.cloneNode(true);
         img.parentNode.replaceChild(novaImg, img);
@@ -233,7 +281,6 @@ function configurarImagensPortfolio() {
         // Também permitir clique no overlay
         const overlay = novaImg.closest('.portfolio-item').querySelector('.portfolio-overlay');
         if (overlay) {
-            overlay.style.cursor = 'pointer';
             overlay.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();

@@ -121,9 +121,13 @@ function setLanguage(lang) {
     localStorage.setItem('lang', lang);
     
     // Update custom select display
-    const selectedDiv = document.getElementById('select-selected');
-    const langLabels = {'pt': 'PT', 'en': 'EN', 'es': 'ES'};
-    selectedDiv.textContent = langLabels[lang];
+    const selectedDiv = document.querySelector('#select-selected span');
+    const langLabels = {
+        'pt': 'PT', 
+        'en': 'EN', 
+        'es': 'ES'
+    };
+    if(selectedDiv) selectedDiv.textContent = langLabels[lang];
     
     // Update selected class
     document.querySelectorAll('.select-items div').forEach(div => {
@@ -165,18 +169,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
- 
- // Menu mobile toggle
-        document.querySelector('.menu-toggle').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
 
-        // Fechar menu ao clicar em um link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.querySelector('.nav-links').classList.remove('active');
-            });
-        });
+// Efeito de Header no Scroll
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    header.classList.toggle('scrolled', window.scrollY > 50);
+});
 
         // Filtro do portfólio
         document.querySelectorAll('.filter-btn').forEach(button => {
@@ -451,15 +449,46 @@ function startTypewriter() {
 // Animated menu toggle
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
+const header = document.querySelector('header');
+
+function closeMenu() {
+    if (navLinks.classList.contains('active')) {
+        menuToggle.classList.remove('is-active');
+        header.classList.remove('nav-active');
+        document.body.classList.remove('menu-open');
+        gsap.to(navLinks, { 
+            x: '100%', 
+            duration: 0.5, 
+            ease: "power2.inOut", 
+            onComplete: () => {
+                navLinks.classList.remove('active');
+                gsap.set(navLinks, { clearProps: "x" }); // Limpa o transform para evitar bugs
+            } 
+        });
+        // Reexibir o cursor personalizado
+        gsap.to([dot, outline], { opacity: 1, duration: 0.3 });
+    }
+}
 
 if (menuToggle && navLinks) {
     menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('is-active');
+        header.classList.toggle('nav-active');
+        document.body.classList.toggle('menu-open');
+        
         if (navLinks.classList.contains('active')) {
-            gsap.to(navLinks, { x: '100%', duration: 0.5, ease: "power2.inOut", onComplete: () => navLinks.classList.remove('active') });
+            closeMenu();
         } else {
             navLinks.classList.add('active');
             gsap.fromTo(navLinks, { x: '100%' }, { x: '0%', duration: 0.5, ease: "power2.inOut" });
+            // Esconder o cursor personalizado ao abrir o menu
+            gsap.to([dot, outline], { opacity: 0, duration: 0.3 });
         }
+    });
+
+    // Fechar menu ao clicar em qualquer link de navegação
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', closeMenu);
     });
 }
 
@@ -512,3 +541,64 @@ if (portfolioSection) {
         }
     });
 }
+
+// Lógica do Cursor Personalizado
+const dot = document.querySelector('.cursor-dot');
+const outline = document.querySelector('.cursor-outline');
+
+// Inicializa o centro do cursor para evitar conflitos com CSS
+gsap.set([dot, outline], { xPercent: -50, yPercent: -50 });
+
+window.addEventListener('mousemove', (e) => {
+    // Usa quickSetter ou to para mover o cursor
+    gsap.to(dot, { x: e.clientX, y: e.clientY, duration: 0.1, overwrite: "auto" });
+    gsap.to(outline, { x: e.clientX, y: e.clientY, duration: 0.3, overwrite: "auto" });
+    
+    // Garante que o cursor apareça ao mover (caso tenha sido escondido)
+    dot.style.opacity = "1";
+    outline.style.opacity = "1";
+});
+
+// Hover effect no cursor para links
+window.addEventListener('mouseover', (e) => {
+    // Verifica se o elemento sob o mouse (ou algum pai dele) é interativo
+    const target = e.target.closest('a, button, .portfolio-item, .custom-select, .filter-btn, .menu-toggle, .back-to-top, .close-btn, .control-btn, #modalImage, #imageModal');
+    
+    if (target) {
+        gsap.to(outline, { scale: 1.5, backgroundColor: 'rgba(255,255,255,0.1)', duration: 0.3 });
+    }
+});
+
+window.addEventListener('mouseout', (e) => {
+    const target = e.target.closest('a, button, .portfolio-item, .custom-select, .filter-btn, .menu-toggle, .back-to-top, .close-btn, .control-btn, #modalImage, #imageModal');
+    
+    if (target) {
+        gsap.to(outline, { scale: 1, backgroundColor: 'transparent', duration: 0.3 });
+    }
+});
+
+// Botão Voltar ao Topo e Barra de Progresso
+const backToTop = document.getElementById('backToTop');
+const circle = document.querySelector('.progress-ring__circle');
+const radius = circle.r.baseVal.value;
+const circumference = radius * 2 * Math.PI;
+
+circle.style.strokeDasharray = `${circumference} ${circumference}`;
+
+window.addEventListener('scroll', () => {
+    // Mostrar/Esconder botão
+    if (window.scrollY > 400) {
+        backToTop.classList.add('active');
+    } else {
+        backToTop.classList.remove('active');
+    }
+
+    // Calcular progresso
+    const scrollPercent = (window.scrollY) / (document.documentElement.scrollHeight - window.innerHeight);
+    const offset = circumference - (scrollPercent * circumference);
+    circle.style.strokeDashoffset = offset;
+});
+
+backToTop.addEventListener('click', () => {
+    gsap.to(window, { duration: 1, scrollTo: 0, ease: "power2.inOut" });
+});

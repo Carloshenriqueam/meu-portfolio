@@ -36,7 +36,7 @@
         }
        @font-face {
             font-family: 'Akira Expanded';
-            src: url('fonts/Akira\ Expanded\ Demo.otf'), /* Formato moderno */
+            src: url('fonts/Akira\ Expanded\ Demo.otf'); /* Formato moderno */
        }
         body {
             background-color: #f9f9f9;
@@ -113,25 +113,50 @@
         
         /* Header e Navegação */
         header {
-            background: linear-gradient(190deg, black, rgba(63, 63, 63, 0.158)) padding-box,
-            linear-gradient(190deg, rgba(184, 184, 184, 0.438), rgba(54, 54, 54, 0)) border-box;
-            border-bottom: 1px solid rgba(255, 255, 255, 0);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px); /* Suporte para Safari */
-
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 10px 0;
+            left: 50%;
+            transform: translateX(-50%);
         }
         
+        header.scrolled {
+            top: 15px;
+            width: 90%;
+            max-width: 1100px;
+            padding: 8px 25px;
+            background: rgba(15, 15, 15, 0.6);
+            backdrop-filter: blur(12px) saturate(180%) contrast(95%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%) contrast(95%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Estado quando o menu mobile está aberto */
+        header.nav-active {
+            top: 0 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            border-radius: 0 !important;
+            background: rgba(0, 0, 0, 0.95) !important;
+            padding: 15px 0 !important;
+        }
+
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
-            
+            padding: 0;
+            min-height: 60px;
         }
         
         .logo > img{
@@ -167,10 +192,28 @@
         
         .menu-toggle {
             display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
             cursor: pointer;
-            font-size: 1.5rem;
+            z-index: 1001;
         }
         
+        .menu-toggle span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: white;
+            border-radius: 3px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Animação do Hambúrguer para X */
+        .menu-toggle.is-active span:nth-child(1) { transform: translateY(9.5px) rotate(45deg); }
+        .menu-toggle.is-active span:nth-child(2) { opacity: 0; transform: translateX(-20px); }
+        .menu-toggle.is-active span:nth-child(3) { transform: translateY(-9.5px) rotate(-45deg); }
+
         .language-toggle {
             display: flex;
         }
@@ -178,46 +221,61 @@
         /* Custom Select Styles */
         .custom-select {
             position: relative;
-            font-family: 'Akira Expanded', sans-serif;
+            font-family: 'Akira Expanded', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', 'Segoe UI Symbol', sans-serif;
             font-size: 0.9rem;
         }
         
         .select-selected {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-color);
-            padding: 5px 10px;
+            padding: 6px 12px;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 20px;
             transition: all 0.3s;
-            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 70px;
+            justify-content: space-between;
+            line-height: 1;
         }
         
+        .select-selected i {
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+        }
+
         .select-selected:hover {
             background: rgba(255, 255, 255, 0.2);
         }
         
         .select-items {
             position: absolute;
-            top: 100%;
+            top: calc(100% + 10px);
             left: 0;
             right: 0;
-            background: #000;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-top: none;
-            border-radius: 0 0 5px 5px;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease;
             z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
         
         .custom-select.open .select-items {
             max-height: 200px;
         }
         
+        .custom-select.open .select-selected i {
+            transform: rotate(180deg);
+        }
+
         .select-items div {
-            padding: 8px 10px;
+            padding: 10px 15px;
             color: white;
             cursor: pointer;
             transition: background 0.2s;
@@ -536,20 +594,19 @@
         /* Responsividade */
         @media (max-width: 815px) {
             .menu-toggle {
-                display: block;
+                display: flex;
             }
             
        .nav-links {
         position: fixed;
-        top: 85px;
+        top: 0;
         left: -100%;
         width: 100%;
-        height: calc(100vh - 70px);
-        background: rgba(0, 0, 0, 0.8); /* Fundo com transparência */
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
         flex-direction: column;
         align-items: center;
-        justify-content: flex-start;
-        padding-top: 50px;
+        justify-content: center;
         transition: left 0.3s;
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px); /* Suporte para Safari */
@@ -877,4 +934,85 @@ section::after {
   right: 10%;
   width: 1px;
   height: 100%;
+}
+
+/* Cursor Personalizado */
+.cursor-dot, .cursor-outline {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    z-index: 11000;
+    pointer-events: none;
+    opacity: 0; /* Começa invisível e aparece no primeiro movimento */
+    transition: opacity 0.3s ease, background-color 0.3s ease, border 0.3s ease;
+}
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: white;
+}
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Esconder cursor quando o menu está aberto */
+body.menu-open .cursor-dot,
+body.menu-open .cursor-outline {
+    opacity: 0 !important;
+    visibility: hidden;
+}
+
+/* Esconder cursor real em dispositivos que suportam hover */
+@media (hover: hover) and (pointer: fine) {
+    * {
+        cursor: none !important;
+    }
+    
+    /* Trazer o cursor padrão de volta quando o menu estiver aberto para navegação desktop */
+    body.menu-open * {
+        cursor: default !important;
+    }
+}
+
+/* Botão Voltar ao Topo */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(5px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.back-to-top.active {
+    opacity: 1;
+    visibility: visible;
+}
+.back-to-top i {
+    font-size: 18px;
+    color: white;
+}
+.progress-ring {
+    position: absolute;
+    transform: rotate(-90deg);
+}
+.progress-ring__circle {
+    transition: stroke-dashoffset 0.1s;
+    transform-origin: 50% 50%;
+    stroke-dasharray: 138.23; /* 2 * PI * r (r=22) */
+    stroke-dashoffset: 138.23;
 }
