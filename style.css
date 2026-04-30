@@ -598,7 +598,7 @@
         }
         
         /* Responsividade */
-        @media (max-width: 815px) {
+        @media (max-width: 1018px) {
             .menu-toggle {
                 display: flex;
             }
