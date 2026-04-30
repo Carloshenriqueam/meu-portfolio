@@ -1,5 +1,16 @@
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+// Inicialização do Lenis (Smooth Scroll)
+const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true
+});
+
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time) => lenis.raf(time * 1000));
+gsap.ticker.lagSmoothing(0);
+
 // Translations
 const translations = {
     'pt': {
@@ -161,19 +172,49 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            gsap.to(window, {
-                duration: 1,
-                scrollTo: { y: target, autoKill: true },
-                ease: "power2.inOut"
-            });
+            lenis.scrollTo(target);
         }
     });
 });
 
-// Efeito de Header no Scroll
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    header.classList.toggle('scrolled', window.scrollY > 50);
+// Refined Glassmorphism Header Animation
+const headerElement = document.querySelector('header');
+gsap.set(headerElement, { xPercent: -50 });
+
+ScrollTrigger.create({
+    start: "top -50",
+    onEnter: () => {
+        gsap.to(headerElement, {
+            y: 15,
+            width: "92%",
+            maxWidth: "1100px",
+            borderRadius: "24px",
+            backgroundColor: "rgba(15, 15, 15, 0.4)",
+            backdropFilter: "blur(20px) saturate(180%) brightness(1.2)",
+            padding: "8px 25px",
+            border: "1px solid rgba(255, 255, 255, 0.12)",
+            boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)",
+            duration: 0.8,
+            ease: "expo.out",
+            overwrite: true
+        });
+    },
+    onLeaveBack: () => {
+        gsap.to(headerElement, {
+            y: 0,
+            width: "100%",
+            maxWidth: "100%",
+            borderRadius: "0px",
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            backdropFilter: "blur(5px) saturate(100%) brightness(1)",
+            padding: "10px 0",
+            border: "1px solid rgba(255, 255, 255, 0)",
+            boxShadow: "0 0 0 rgba(0, 0, 0, 0)",
+            duration: 0.8,
+            ease: "expo.out",
+            overwrite: true
+        });
+    }
 });
 
         // Filtro do portfólio
@@ -283,30 +324,37 @@ gsap.from("#about .about-image", {
 });
 
 // Skills Section
-gsap.from("#skills h2", {
-    duration: 1,
-    y: 50,
-    opacity: 0,
-    ease: "power2.out",
+// Skills Section - Timeline Coreografada
+const skillsTl = gsap.timeline({
     scrollTrigger: {
         trigger: "#skills",
-        start: "top 80%",
-        toggleActions: "restart reverse restart reverse"
+        start: "top 75%",
+        toggleActions: "play reverse play reverse"
     }
 });
 
-gsap.from(".skills-grid .card", {
-    duration: 0.8,
+skillsTl.from("#skills h2", {
     y: 50,
     opacity: 0,
+    duration: 1,
+    ease: "power3.out"
+})
+.from(".skills-grid .outer", {
+    duration: 1.2,
+    y: 100,
+    opacity: 0,
+    rotationX: -45,
     stagger: 0.2,
-    ease: "power2.out",
-    scrollTrigger: {
-        trigger: ".skills-grid",
-        start: "top 80%",
-        toggleActions: "restart reverse restart reverse"
-    }
-});
+    ease: "back.out(1.7)",
+    transformOrigin: "top center"
+}, "-=0.6")
+.from(".skills-grid .line", {
+    scaleX: 0,
+    scaleY: 0,
+    duration: 0.8,
+    stagger: 0.1,
+    ease: "power2.inOut"
+}, "-=1");
 
 // Portfolio Section
 gsap.from("#portfolio h2", {
@@ -450,21 +498,56 @@ function startTypewriter() {
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
 const header = document.querySelector('header');
+const navItems = document.querySelectorAll('.nav-links li');
+
+let menuTl = gsap.timeline({ paused: true });
+
+// Gerenciamento responsivo com GSAP MatchMedia
+let mm = gsap.matchMedia();
+
+mm.add("(max-width: 815px)", () => {
+    // Define a timeline apenas para mobile
+    menuTl = gsap.timeline({ paused: true });
+    
+    menuTl.to(navLinks, {
+        right: 0,
+        duration: 0.6,
+        ease: "expo.inOut"
+    }).to(navItems, {
+        opacity: 1,
+        x: 0,
+        duration: 0.4,
+        stagger: 0.1,
+        ease: "power2.out"
+    }, "-=0.3");
+
+    return () => {
+        // Cleanup total ao sair do modo mobile
+        menuTl.kill(); // Interrompe qualquer animação ativa
+        
+        // Remove todos os estilos inline aplicados pelo GSAP
+        gsap.set([navLinks, navItems, header], { 
+            clearProps: "all" 
+        });
+
+        // Força a remoção de classes de estado
+        navLinks.classList.remove('active');
+        header.classList.remove('nav-active');
+        menuToggle.classList.remove('is-active');
+        document.body.classList.remove('menu-open');
+    };
+});
 
 function closeMenu() {
     if (navLinks.classList.contains('active')) {
         menuToggle.classList.remove('is-active');
         header.classList.remove('nav-active');
         document.body.classList.remove('menu-open');
-        gsap.to(navLinks, { 
-            x: '100%', 
-            duration: 0.5, 
-            ease: "power2.inOut", 
-            onComplete: () => {
-                navLinks.classList.remove('active');
-                gsap.set(navLinks, { clearProps: "x" }); // Limpa o transform para evitar bugs
-            } 
+        
+        menuTl.reverse().eventCallback("onReverseComplete", () => {
+            navLinks.classList.remove('active');
         });
+
         // Reexibir o cursor personalizado
         gsap.to([dot, outline], { opacity: 1, duration: 0.3 });
     }
@@ -480,7 +563,8 @@ if (menuToggle && navLinks) {
             closeMenu();
         } else {
             navLinks.classList.add('active');
-            gsap.fromTo(navLinks, { x: '100%' }, { x: '0%', duration: 0.5, ease: "power2.inOut" });
+            menuTl.play();
+
             // Esconder o cursor personalizado ao abrir o menu
             gsap.to([dot, outline], { opacity: 0, duration: 0.3 });
         }
