@@ -549,7 +549,9 @@ function closeMenu() {
         });
 
         // Reexibir o cursor personalizado
-        gsap.to([dot, outline], { opacity: 1, duration: 0.3 });
+        if (window.matchMedia('(pointer: fine)').matches) {
+            gsap.to([dot, outline], { opacity: 1, duration: 0.3 });
+        }
     }
 }
 
@@ -566,7 +568,9 @@ if (menuToggle && navLinks) {
             menuTl.play();
 
             // Esconder o cursor personalizado ao abrir o menu
-            gsap.to([dot, outline], { opacity: 0, duration: 0.3 });
+            if (window.matchMedia('(pointer: fine)').matches) {
+                gsap.to([dot, outline], { opacity: 0, duration: 0.3 });
+            }
         }
     });
 
@@ -630,36 +634,42 @@ if (portfolioSection) {
 const dot = document.querySelector('.cursor-dot');
 const outline = document.querySelector('.cursor-outline');
 
-// Inicializa o centro do cursor para evitar conflitos com CSS
-gsap.set([dot, outline], { xPercent: -50, yPercent: -50 });
+// Verificar se o dispositivo possui um ponteiro fino (mouse)
+const isDesktop = window.matchMedia('(pointer: fine)').matches;
 
-window.addEventListener('mousemove', (e) => {
-    // Usa quickSetter ou to para mover o cursor
-    gsap.to(dot, { x: e.clientX, y: e.clientY, duration: 0.1, overwrite: "auto" });
-    gsap.to(outline, { x: e.clientX, y: e.clientY, duration: 0.3, overwrite: "auto" });
-    
-    // Garante que o cursor apareça ao mover (caso tenha sido escondido)
-    dot.style.opacity = "1";
-    outline.style.opacity = "1";
-});
+if (isDesktop && dot && outline) {
+    // Inicializa o centro do cursor para evitar conflitos com CSS
+    gsap.set([dot, outline], { xPercent: -50, yPercent: -50 });
 
-// Hover effect no cursor para links
-window.addEventListener('mouseover', (e) => {
-    // Verifica se o elemento sob o mouse (ou algum pai dele) é interativo
-    const target = e.target.closest('a, button, .portfolio-item, .custom-select, .filter-btn, .menu-toggle, .back-to-top, .close-btn, .control-btn, #modalImage, #imageModal');
-    
-    if (target) {
-        gsap.to(outline, { scale: 1.5, backgroundColor: 'rgba(255,255,255,0.1)', duration: 0.3 });
-    }
-});
+    window.addEventListener('mousemove', (e) => {
+        // Usa quickSetter ou to para mover o cursor
+        gsap.to(dot, { x: e.clientX, y: e.clientY, duration: 0.1, overwrite: "auto" });
+        gsap.to(outline, { x: e.clientX, y: e.clientY, duration: 0.3, overwrite: "auto" });
+        
+        // Garante que o cursor apareça ao mover (caso tenha sido escondido)
+        dot.style.opacity = "1";
+        outline.style.opacity = "1";
+    });
 
-window.addEventListener('mouseout', (e) => {
-    const target = e.target.closest('a, button, .portfolio-item, .custom-select, .filter-btn, .menu-toggle, .back-to-top, .close-btn, .control-btn, #modalImage, #imageModal');
-    
-    if (target) {
-        gsap.to(outline, { scale: 1, backgroundColor: 'transparent', duration: 0.3 });
-    }
-});
+    // Hover effect no cursor para links
+    window.addEventListener('mouseover', (e) => {
+        const target = e.target.closest('a, button, .portfolio-item, .custom-select, .filter-btn, .menu-toggle, .back-to-top, .close-btn, .control-btn, #modalImage, #imageModal');
+        if (target) {
+            gsap.to(outline, { scale: 1.5, backgroundColor: 'rgba(255,255,255,0.1)', duration: 0.3 });
+        }
+    });
+
+    window.addEventListener('mouseout', (e) => {
+        const target = e.target.closest('a, button, .portfolio-item, .custom-select, .filter-btn, .menu-toggle, .back-to-top, .close-btn, .control-btn, #modalImage, #imageModal');
+        if (target) {
+            gsap.to(outline, { scale: 1, backgroundColor: 'transparent', duration: 0.3 });
+        }
+    });
+} else {
+    // Se for mobile/tablet (sem mouse), esconde os elementos do cursor permanentemente
+    if (dot) dot.style.display = 'none';
+    if (outline) outline.style.display = 'none';
+}
 
 // Botão Voltar ao Topo e Barra de Progresso
 const backToTop = document.getElementById('backToTop');
